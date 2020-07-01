@@ -16,10 +16,10 @@ text=st.text_area('')
 #st.subheader('Enter the Path/URL of the image mask')
 #path=st.text_area('.')
 
-img=Image.open(r'F:\8k wallpapers\104765.jpg')
-mask=np.array(img)
+#img=Image.open(r'F:\8k wallpapers\104765.jpg')
+#mask=np.array(img)
 fig=plt.figure(figsize=(8,8))
-wc=WordCloud(background_color='white',mask=mask)
+wc=WordCloud(background_color='white')
 wc.generate(text)
 
 plt.imshow(wc,cmap='viridis',interpolation='nearest')
