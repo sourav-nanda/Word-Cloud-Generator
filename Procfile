@@ -1,0 +1,1 @@
+web: sh setup.sh && streamlit run word_cloud_generator.py
