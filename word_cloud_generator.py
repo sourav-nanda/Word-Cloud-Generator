@@ -12,7 +12,7 @@ def gen():
     
     img_types=['jpeg','jpg','png','webp']
     img_file=st.file_uploader('Upload your image',type=img_types)
-    st.write(supported file types:''jpeg','jpg','png','webp')
+    st.write('supported file types:','jpeg','jpg','png','webp')
 
     img=plt.imread(img_file)
     mask=np.array(img)
