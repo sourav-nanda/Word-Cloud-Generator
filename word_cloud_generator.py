@@ -17,10 +17,10 @@ def gen():
     img_types=['jpeg','jpg','png','webp']
     img_file=st.file_uploader('Upload your image',type=img_types)
     st.write('Supported file types are ','jpeg,','jpg,','png,','webp')
-
-    img=Image.open(img_file)
-    mask=np.array(img)
-    size=st.slider('Adjust the resolution of the wordcloud',1,10)
+    if img_file is not None:
+        img=Image.open(img_file)
+        mask=np.array(img)
+        size=st.slider('Adjust the resolution of the wordcloud',1,10)
     
     
     wc=WordCloud(background_color='white',mask=mask,height=1920,width=1080)
