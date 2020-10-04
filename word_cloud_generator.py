@@ -5,7 +5,8 @@ import numpy as np
 import streamlit as st
 from PIL import Image
 
-warnings='ignore'
+warnings.filterwarnings('ignore')
+st.set_option('deprecation.showfileUploaderEncoding', False)
 def gen():
     global size
     global wc
