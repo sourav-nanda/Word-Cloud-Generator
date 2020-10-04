@@ -1,12 +1,11 @@
 from wordcloud import WordCloud,ImageColorGenerator
-import warnings
+
 import matplotlib.pyplot as plt
 import numpy as np
 import streamlit as st
 from PIL import Image
 
-warnings.filterwarnings('ignore')
-st.set_option('deprecation.showfileUploaderEncoding', False)
+
 def gen():
     global size
     global wc
