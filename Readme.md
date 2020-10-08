@@ -1,4 +1,4 @@
-This is a simple word cloud generator you just need to enter some text and upload an Image (keep in mind the the generator ignore white color so the background should be white).
+This is a simple word cloud generator you just need to enter some text and upload an Image (keep in mind the the generator ignores white color so the background should be white).
 
 
 
