@@ -4,6 +4,7 @@ import numpy as np
 import streamlit as st
 from PIL import Image
 
+
 st.markdown('<style>#MainMenu {Visibility:hidden;}footer {Visibility:hidden;} </style>', unsafe_allow_html=True)
 
 st.title('WORD CLOUD GENERATOR')
@@ -14,23 +15,40 @@ img_types=['jpeg','jpg','png','webp']
 img_file=st.file_uploader('Upload your image',type=img_types)
 st.text('''Supported file types are jpeg,jpg,png,webp''')
 st.write('Ensure that the image has white background color only to get the wordcloud in your desired shape')
-if img_file:
-   img=Image.open(img_file)
-   size=st.slider('Adjust the resolution of the wordcloud',1,10)
-   col1,col2=st.beta_columns(2)
-   col1.image(img,width=350,height=350)
-   mask=np.array(img)
-   wc=WordCloud(background_color='white',mask=mask,height=1920,width=1080)
-   img_col=ImageColorGenerator(mask)
-   cloud=wc.generate(text)
-    
-     
-fig,ax=plt.subplots(figsize=[size,size])
-plt.imshow(wc.recolor(color_func=img_col),cmap='viridis',interpolation='bilinear')
-plt.axis('off')
-plt.show()
-with col2:
-    st.pyplot(fig)
+size=st.slider('Adjust the resolution of the wordcloud',1,10)
+
+img=Image.open(img_file)
+mask=np.array(img)
+
+
+col1,col2=st.beta_columns(2)
+col1.image(mask,width=350,height=350)
+
+
+def binary_detect(img):
+    if len(img.shape)<3:
+       wc=WordCloud(background_color='white',mask=mask,height=1920,width=1080)
+       cloud=wc.generate(text)
+       fig,ax=plt.subplots(figsize=[size,size])
+       plt.imshow(cloud,cmap='viridis',interpolation='bilinear')
+       plt.axis('off')
+       plt.show()
+       with col2:
+            st.pyplot(fig)
+    else:
+         wc=WordCloud(background_color='white',mask=mask,height=1920,width=1080)
+         img_col=ImageColorGenerator(mask)
+         cloud=wc.generate(text)
+            
+             
+         fig,ax=plt.subplots(figsize=[size,size])
+         plt.imshow(wc.recolor(color_func=img_col),cmap='viridis',interpolation='bilinear')
+         plt.axis('off')
+         plt.show()
+         with col2:
+              st.pyplot(fig)
+
+binary_detect(mask)
 
 st.subheader('Connect with me')
 st.write('<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/vaakash/socializer/80391a50/css/socializer.min.css"><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">',unsafe_allow_html=True)
