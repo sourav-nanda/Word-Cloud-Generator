@@ -1,29 +1,20 @@
 from wordcloud import WordCloud,ImageColorGenerator
 import matplotlib.pyplot as plt
 import numpy as np
+import st_helper as sth
 import streamlit as st
 from PIL import Image
 
 
-st.markdown('<style>#MainMenu {Visibility:hidden;}footer {Visibility:hidden;} </style>', unsafe_allow_html=True)
 
+st.markdown(sth.hide_header_footer(),unsafe_allow_html=True)
 st.title('WORD CLOUD GENERATOR')
-st.subheader('Enter your text here')
-text=st.text_area('')
+text=st.text_area('Enter your text here')
     
 img_types=['jpeg','jpg','png','webp']
 img_file=st.file_uploader('Upload your image',type=img_types)
-st.text('''Supported file types are jpeg,jpg,png,webp''')
-st.write('Ensure that the image has white background color only to get the wordcloud in your desired shape')
+st.markdown(sth.write_color_text('MediumSeaGreen','h7','Ensure that the image has white background color to get the wordcloud in your desired shape'),unsafe_allow_html=True)
 size=st.slider('Adjust the resolution of the wordcloud',1,10)
-
-img=Image.open(img_file)
-mask=np.array(img)
-
-
-col1,col2=st.beta_columns(2)
-col1.image(mask,width=350,height=350)
-
 
 def binary_detect(img):
     if len(img.shape)<3:
@@ -39,8 +30,6 @@ def binary_detect(img):
          wc=WordCloud(background_color='white',mask=mask,height=1920,width=1080)
          img_col=ImageColorGenerator(mask)
          cloud=wc.generate(text)
-            
-             
          fig,ax=plt.subplots(figsize=[size,size])
          plt.imshow(wc.recolor(color_func=img_col),cmap='viridis',interpolation='bilinear')
          plt.axis('off')
@@ -48,8 +37,17 @@ def binary_detect(img):
          with col2:
               st.pyplot(fig)
 
-binary_detect(mask)
 
-st.subheader('Connect with me')
-st.write('<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/vaakash/socializer/80391a50/css/socializer.min.css"><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">',unsafe_allow_html=True)
-st.write('<div class="socializer a sr-32px sr-opacity sr-bg-none sr-pad"><span class="sr-facebook"><a href="https://www.facebook.com/sourav.nanda.528" target="_blank" title="Facebook"><i class="fa fa-facebook"></i></a></span><span class="sr-instagram"><a href="https://instagram.com/_sourav_nanda_/?hl=en" target="_blank" title="Instagram"><i class="fa fa-instagram"></i></a></span><span class="sr-linkedin"><a href="https://www.linkedin.com/in/sourav-nanda-31ab841aa/" target="_blank" title="LinkedIn"><i class="fa fa-linkedin"></i></a></span><span class="sr-github"><a href="https://github.com/sourav-nanda" target="_blank" title="Github"><i class="fa fa-github"></div>',unsafe_allow_html=True)
+if img_file is not None:
+     try:
+          img=Image.open(img_file)
+          mask=np.array(img)
+          col1,col2=st.columns(2)
+          col1.image(mask,width=350,)
+          binary_detect(mask)
+     except:
+          st.subheader('Upload an Image')
+
+
+st.sidebar.markdown(sth.credits(),unsafe_allow_html=True)
+
