@@ -1,5 +1,5 @@
 wordcloud==1.7.0
 numpy==1.18.1
-streamlit==0.89.0
+streamlit==1.11.1
 matplotlib==3.2.1
 Pillow==8.3.2
